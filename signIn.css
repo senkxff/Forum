@@ -1,0 +1,32 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#welcomeString {
+    justify-content: start;
+    align-items: center;
+}
+
+#login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+label {
+    margin-right: 10px;
+}
+
+label#lgn {
+    margin-right: 20px;
+}
+
+input, label {
+    margin-bottom: 10px;
+}
