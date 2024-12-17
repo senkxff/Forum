@@ -8,23 +8,27 @@
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="signIn.css">
-        <title>Регистрация</title>
+        <title>Вход</title>
     </head>
     <body>
-        <form action="" method="post">
-            <div id="login">
-                <label for="login" id="lgn">Введите Ваш логин: </label>
-                <input name="login" id="lgn">
-            </div>
-            <div id="password">
-                <label for="password">Введите Ваш пароль: </label>
-                <input name="password" type="password">
-            </div>
-            <div id="startButtons">
-                <input type="submit" value="Войти" id="enterInto">
-                <input type="submit" value="Зарегистрироваться" id="registrationInto">
-            </div>
+        <header>
+            <h1 class="header">WELCOME TO MY FORUM</h1>
+        </header>
+        <main>
+            <form action="" method="post">
+                <div class="form">
+                    <input name="login" class="login" placeholder="Введите логин" required value="<?= $_POST['login'] ?? "";?>"><br>
 
-        </form>
+                    <input name="password" class="password" type="password" placeholder="Введите пароль" required <?= $_POST['password'] ?? "";?>><br>
+
+                    <input type="submit" value="Войти" class="signInButton">
+                    <input type="submit" value="Новый аккаунт" class="registrationButton">
+                </div>
+
+            </form>
+        </main>
+        <footer class="footer">
+            <h2 style="color: black; text-align: center">Все права защищены, Арсений Сеньков - senkxff© </h2>
+        </footer>
     </body>
 </html>

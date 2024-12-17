@@ -1,32 +1,47 @@
-html, body {
-    height: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Agu+Display&family=Amatic+SC:wght@400;700&family=Bebas+Neue&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap');
+
+body {
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 0;
+    font-family: "Amatic SC", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background-image: url(images/phone.png);
+
 }
 
-#welcomeString {
-    justify-content: start;
-    align-items: center;
+header {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
 }
 
-#login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
+.form {
+    margin-left: 468px;
+    margin-top: 125px;
+    align-content: center;
+    display: block;
 }
 
-label {
-    margin-right: 10px;
+.login {
+    margin-bottom: 5px;
 }
 
-label#lgn {
-    margin-right: 20px;
+.password {
+    margin-bottom: 5px;
 }
 
-input, label {
-    margin-bottom: 10px;
+.signInButton {
+    margin-right: 7px;
+}
+
+.footer {
+    margin-top: 15%;
+    margin-left: 3%
+}
+
+.registrationButton:hover,.signInButton:hover {
+    border-radius: 7%;
+    border-color: grey;
+    cursor: pointer;
 }
