@@ -4,5 +4,6 @@ $host = "localhost:3305";
 $user = "root";
 $password = "5456527";
 
-$connection = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+$PDO = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
 
+PDO::prepare("");
