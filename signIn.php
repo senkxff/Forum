@@ -1,4 +1,5 @@
 <?php require_once __DIR__ . "/signInLogic.php"?>
+<?php require_once __DIR__ . "/DataBaseLogic.php"?>
 
 <!doctype html>
 <html lang="ru">
@@ -7,7 +8,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="signIn.css">
+        <link rel="stylesheet" href="css/signIn.css">
         <title>Вход</title>
     </head>
     <body>
@@ -19,12 +20,11 @@
                 <div class="form">
                     <input name="login" class="login" placeholder="Введите логин" required value="<?= $_POST['login'] ?? "";?>"><br>
 
-                    <input name="password" class="password" type="password" placeholder="Введите пароль" required <?= $_POST['password'] ?? "";?>><br>
+                    <input name="password" class="password" type="password" placeholder="Введите пароль" required value="<?= $_POST['password'] ?? "";?>"><br>
 
                     <input type="submit" value="Войти" class="signInButton">
-                    <input type="submit" value="Новый аккаунт" class="registrationButton">
+                    <input type="submit" value="Новый аккаунт" class="registrationButton" name="registrationButton">
                 </div>
-
             </form>
         </main>
         <footer class="footer">
