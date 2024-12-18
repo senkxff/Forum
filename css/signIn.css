@@ -6,8 +6,7 @@ body {
     font-family: "Amatic SC", sans-serif;
     font-weight: 400;
     font-style: normal;
-    background-image: url(images/phone.png);
-
+    background-image: url(../images/фон.jpg);
 }
 
 header {
@@ -17,8 +16,8 @@ header {
 }
 
 .form {
-    margin-left: 468px;
-    margin-top: 125px;
+    margin-left: 43%;
+    margin-top: 12%;
     align-content: center;
     display: block;
 }
@@ -32,11 +31,11 @@ header {
 }
 
 .signInButton {
-    margin-right: 7px;
+    margin-right: 8px;
 }
 
 .footer {
-    margin-top: 15%;
+    margin-top: 16%;
     margin-left: 3%
 }
 
@@ -44,4 +43,8 @@ header {
     border-radius: 7%;
     border-color: grey;
     cursor: pointer;
+}
+
+.truePassword {
+    margin-top: 20%;
 }
