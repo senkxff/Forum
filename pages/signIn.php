@@ -1,4 +1,9 @@
+<?php session_start();
+if (isset($_POST['userName'])) {
+    $_SESSION['userName'] = $_POST['userName'];
+}
 
+?>
 <?php require_once __DIR__ . "/logic/DataBaseLogic.php" ?>
 
 <!doctype html>
@@ -18,12 +23,14 @@
         <main>
             <form action="" method="post">
                 <div class="form">
-                    <input name="login" class="login" placeholder="Введите логин" required value="<?= $_POST['login'] ?? "";?>"><br>
-
+                    <input name="login" class="login" placeholder="Введите email" required value="<?= $_POST['login'] ?? "";?>"><br>
                     <input name="password" class="password" type="password" placeholder="Введите пароль" required value="<?= $_POST['password'] ?? "";?>"><br>
+                    <input name="userName" class="userName" type="text" placeholder="Введите Ваше имя" required value="<?= $_POST["userName"] ?? "";?>">
 
-                    <input type="submit" value="Войти" class="signInButton">
-                    <input type="submit" value="Новый аккаунт" class="registrationButton" name="registrationButton">
+                    <div class="buttons">
+                        <input type="submit" value="Войти" class="signInButton">
+                        <input type="submit" value="Новый аккаунт" class="registrationButton" name="registrationButton">
+                    </div>
                 </div>
             </form>
         </main>

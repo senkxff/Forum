@@ -7,6 +7,8 @@ body {
     font-weight: 400;
     font-style: normal;
     background-image: url(../images/фон.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 header {
@@ -35,7 +37,7 @@ header {
 }
 
 .footer {
-    margin-top: 16%;
+    margin-top: 14%;
     margin-left: 3%
 }
 
@@ -45,6 +47,6 @@ header {
     cursor: pointer;
 }
 
-.truePassword {
-    margin-top: 20%;
+.buttons {
+    margin-top: 1%;
 }
