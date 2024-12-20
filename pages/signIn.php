@@ -1,5 +1,10 @@
-<?php require_once __DIR__ . "/signInLogic.php"?>
-<?php require_once __DIR__ . "/DataBaseLogic.php"?>
+<?php session_start();
+if (isset($_POST['userName'])) {
+    $_SESSION['userName'] = $_POST['userName'];
+}
+
+?>
+<?php require_once __DIR__ . "/logic/DataBaseLogic.php" ?>
 
 <!doctype html>
 <html lang="ru">
@@ -8,7 +13,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="css/signIn.css">
+        <link rel="stylesheet" href="../css/signIn.css">
         <title>Вход</title>
     </head>
     <body>
@@ -18,12 +23,14 @@
         <main>
             <form action="" method="post">
                 <div class="form">
-                    <input name="login" class="login" placeholder="Введите логин" required value="<?= $_POST['login'] ?? "";?>"><br>
-
+                    <input name="login" class="login" placeholder="Введите email" required value="<?= $_POST['login'] ?? "";?>"><br>
                     <input name="password" class="password" type="password" placeholder="Введите пароль" required value="<?= $_POST['password'] ?? "";?>"><br>
+                    <input name="userName" class="userName" type="text" placeholder="Введите Ваше имя" required value="<?= $_POST["userName"] ?? "";?>">
 
-                    <input type="submit" value="Войти" class="signInButton">
-                    <input type="submit" value="Новый аккаунт" class="registrationButton" name="registrationButton">
+                    <div class="buttons">
+                        <input type="submit" value="Войти" class="signInButton">
+                        <input type="submit" value="Новый аккаунт" class="registrationButton" name="registrationButton">
+                    </div>
                 </div>
             </form>
         </main>
