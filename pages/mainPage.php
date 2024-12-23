@@ -15,7 +15,7 @@ require_once __DIR__ . "/logic/DataBaseLogic.php";
 <main>
     <div class="messageBlock">
         <form action="" method="post" enctype="multipart/form-data">
-            <textarea placeholder="Введите ваше сообщение..." class="textarea" name="message" autofocus></textarea>
+            <textarea placeholder="Введите ваше сообщение..." class="textarea" name="message"></textarea>
 
             <input type="file" name="file" class="chooseFileButton" title="выбрать файл">
             <button type="submit" class="sendButton" name="sendButton" title="отправить"></button>
@@ -38,13 +38,11 @@ require_once __DIR__ . "/logic/DataBaseLogic.php";
                 $fileSize = $_FILES['file']['size'];
                 $uploadDir = __DIR__ . "/../uploads";
 
-                // Создаем папку uploads, если она не существует
                 if (!is_dir($uploadDir)) {
                     mkdir($uploadDir, 0777, true);
                 }
 
                 if (in_array($fileType, $allowedImageTypes)) {
-                    // Проверяем размер изображения
                     list($width, $height) = getimagesize($_FILES['file']['tmp_name']);
                     if ($width > 320 || $height > 240) {
                         $fileUploadMessage = "Изображение превышает допустимые размеры 320x240 пикселей.";
@@ -59,7 +57,6 @@ require_once __DIR__ . "/logic/DataBaseLogic.php";
                         }
                     }
                 } elseif ($fileType === $allowedTextType) {
-                    // Проверяем размер текстового файла
                     if ($fileSize > 102400) {
                         $fileUploadMessage = "Текстовый файл превышает допустимый размер 100КБ.";
                     } else {
@@ -76,17 +73,8 @@ require_once __DIR__ . "/logic/DataBaseLogic.php";
                     $fileUploadMessage = "Недопустимый формат файла. Разрешены только JPG, GIF, PNG, TXT.";
                 }
             }
-
-            // Вывод сообщений
-            if ($messageText) {
-                echo "<p><b>" . htmlspecialchars($_SESSION['user_name'] ?? 'Неизвестный пользователь') . ":</b> $messageText</p>";
-            }
-            if ($fileUploadMessage) {
-                echo "<p><b>" . htmlspecialchars($_SESSION['user_name'] ?? 'Неизвестный пользователь') . ":</b> $fileUploadMessage</p>";
-            }
         }
 
-        // Отображение сообщений
         if (isset($messages) && is_array($messages)) {
             foreach ($messages as $message) {
                 $senderName = htmlspecialchars($message['sender_name'] ?? 'Неизвестный отправитель');
@@ -98,13 +86,10 @@ require_once __DIR__ . "/logic/DataBaseLogic.php";
                 if (!empty($filePath)) {
                     $fileExt = pathinfo($filePath, PATHINFO_EXTENSION);
                     if (in_array($fileExt, ['jpg', 'jpeg', 'png', 'gif'])) {
-                        // Отображение изображения
                         echo "<p><img src='$filePath' alt='Изображение' style='max-width:320px; max-height:240px;'></p>";
                     } elseif ($fileExt === 'txt') {
-                        // Ссылка на текстовый файл
                         echo "<p><a href='$filePath' target='_blank'>Скачать текстовый файл</a></p>";
                     } else {
-                        // Ссылка на другие типы файлов
                         echo "<p><a href='$filePath' target='_blank'>Скачать файл</a></p>";
                     }
                 }

@@ -1,10 +1,8 @@
 <?php
-// Запуск сессии, если она еще не начата
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Подключение к базе данных
 $dbname = "users_information";
 $host = "localhost:3305";
 $user = "root";
@@ -15,7 +13,6 @@ if (!$connect) {
     die("Ошибка соединения: " . mysqli_connect_error());
 }
 
-// Регистрация пользователя
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["registrationButton"])) {
     $email = htmlspecialchars($_POST["email"]);
     $password = htmlspecialchars($_POST["password"]);
@@ -23,40 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["registrationButton"])
     $ip = $_SERVER['REMOTE_ADDR'];
     $browserVersion = $_SERVER['HTTP_USER_AGENT'];
 
-    // Хэширование пароля
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // SQL-запрос для вставки пользователя
     $query = "INSERT INTO `users` (email, password_hash, IP, browser, user_name) VALUES (?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($connect, $query);
-    if (!$stmt) {
-        die("Ошибка подготовки SQL-запроса: " . mysqli_error($connect));
-    }
 
     mysqli_stmt_bind_param($stmt, "sssss", $email, $hashed_password, $ip, $browserVersion, $userName);
 
-    if (!mysqli_stmt_execute($stmt)) {
-        die("Ошибка выполнения SQL-запроса: " . mysqli_stmt_error($stmt));
-    }
-
-    mysqli_stmt_close($stmt);
-
-    // Получение ID зарегистрированного пользователя
-    $query = "SELECT id FROM `users` WHERE email = ?";
-    $stmt = mysqli_prepare($connect, $query);
-    if (!$stmt) {
-        die("Ошибка подготовки SQL-запроса: " . mysqli_error($connect));
-    }
-    mysqli_stmt_bind_param($stmt, "s", $email);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $id);
-    mysqli_stmt_fetch($stmt);
-
-    // Установка данных сессии
-    $_SESSION['user_id'] = $id;
     $_SESSION['user_name'] = $userName;
-
-    mysqli_stmt_close($stmt);
 
     // Перенаправление
     header("Location: mainPage.php");
@@ -70,30 +41,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["signInButton"])) {
 
     $query = "SELECT `id`, `user_name`, `password_hash` FROM `users` WHERE `email` = ?";
     $stmt = mysqli_prepare($connect, $query);
-    if (!$stmt) {
-        die("Ошибка подготовки SQL-запроса: " . mysqli_error($connect));
-    }
 
     mysqli_stmt_bind_param($stmt, "s", $email);
     mysqli_stmt_execute($stmt);
+
     mysqli_stmt_bind_result($stmt, $id, $userName, $password_hash);
     mysqli_stmt_fetch($stmt);
 
-    // Проверка пароля
-    if (password_verify($password, $hashed_password)) {
-        $_SESSION['user_id'] = $id;
-        $_SESSION['user_name'] = $userName;
-
-        header("Location: mainPage.php");
-        exit();
+    if (mysqli_stmt_fetch($stmt)) {
+        if (password_verify($password, $password_hash)) {
+            session_start();
+            $_SESSION['user_name'] = $userName;
+            header("Location: mainPage.php");
+            exit();
+        } else {
+            echo "Неверный email или пароль!";
+        }
     } else {
-        echo "Неверный email или пароль!";
+        echo "Пользователь не найден!";
     }
 
     mysqli_stmt_close($stmt);
-}
+    }
 
-// Отправка сообщения
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["sendButton"])) {
     if (!isset($_SESSION["user_name"])) {
         die("Ошибка: Пользователь не авторизован.");
@@ -116,12 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["sendButton"])) {
 
     mysqli_stmt_close($stmt);
 
-    // Перенаправление
     header("Location: mainPage.php");
     exit();
 }
 
-// Получение сообщений
 $query = "SELECT `sender_name`, `message_text` FROM `messages` ORDER BY `created_at` DESC";
 $stmt = mysqli_prepare($connect, $query);
 
@@ -139,11 +107,11 @@ if ($result) {
     }
 }
 
-// Загрузка файлов
+/* Загрузка файлов
 if ($_FILES) {
     $file = $_FILES['file'];
     $fileName = basename($file['name']);
-    $uploadDir = "uploads/";
+    $uploadDir = "../uploads";
     $filePath = $uploadDir . $fileName;
 
     if (move_uploaded_file($file['tmp_name'], $filePath)) {
@@ -170,5 +138,5 @@ if ($_FILES) {
     } else {
         die("Ошибка загрузки файла.");
     }
-}
+} */
 
