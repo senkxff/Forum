@@ -13,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["sortOrder"])) {
     <link rel="stylesheet" href="../css/mainPage.css">
 </head>
 <body>
-<header></header>
 
 <main>
     <div class="messageBlock">
@@ -59,6 +58,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["sortOrder"])) {
     </div>
 </main>
 
-<footer></footer>
 </body>
 </html>
