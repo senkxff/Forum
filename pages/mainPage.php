@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . "/logic/DataBaseLogic.php";
-
-
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["sortOrder"])) {
+    $sortOrder = $_POST["sortOrder"];
+}
 ?>
 
 <!doctype html>

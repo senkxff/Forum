@@ -140,38 +140,36 @@ if ($_FILES) {
     }
 } */
 
-// Запрос сообщений из базы данных
+
 $sortOrder = 'date_desc'; // Значение по умолчанию
 
-// Если форма отправлена, обрабатываем сортировку
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["sortOrder"])) {
     $sortOrder = $_POST["sortOrder"];
 }
 
-// Запрос сообщений из базы данных
-$query = "SELECT sender_name, message_text, file_path, created_at FROM messages"; // Используем created_at
+$query = "SELECT sender_name, message_text, file_path, created_at FROM messages";
 
-// Добавление сортировки в запрос
 switch ($sortOrder) {
     case 'date_asc':
-        $query .= " ORDER BY created_at ASC"; // Сортировка по дате от старых к новым
+        $query .= " ORDER BY created_at ASC";
         break;
     case 'date_desc':
-        $query .= " ORDER BY created_at DESC"; // Сортировка по дате от новых к старым
+        $query .= " ORDER BY created_at DESC";
         break;
     case 'name_asc':
-        $query .= " ORDER BY sender_name ASC"; // Сортировка по имени от A до Z
+        $query .= " ORDER BY sender_name ASC";
         break;
     case 'name_desc':
-        $query .= " ORDER BY sender_name DESC"; // Сортировка по имени от Z до A
+        $query .= " ORDER BY sender_name DESC";
         break;
     default:
-        $query .= " ORDER BY created_at DESC"; // Если сортировка не выбрана, сортируем по дате по умолчанию
+        $query .= " ORDER BY created_at DESC";
         break;
 }
 
-// Выполнение запроса
+
 $stmt = mysqli_prepare($connect, $query);
+
 if (!$stmt) {
     die("Ошибка подготовки SQL-запроса: " . mysqli_error($connect));
 }
