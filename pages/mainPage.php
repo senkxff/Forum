@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . "/logic/DataBaseLogic.php";
-
-
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["sortOrder"])) {
+    $sortOrder = $_POST["sortOrder"];
+}
 ?>
 
 <!doctype html>
@@ -12,7 +13,6 @@ require_once __DIR__ . "/logic/DataBaseLogic.php";
     <link rel="stylesheet" href="../css/mainPage.css">
 </head>
 <body>
-<header></header>
 
 <main>
     <div class="messageBlock">
@@ -33,6 +33,7 @@ require_once __DIR__ . "/logic/DataBaseLogic.php";
 
     <div class="printMessage" id="messageContainer">
         <?php
+
         if (isset($messages) && is_array($messages)) {
             foreach ($messages as $message) {
                 $senderName = htmlspecialchars($message['sender_name'] ?? 'Неизвестный отправитель');
@@ -58,6 +59,5 @@ require_once __DIR__ . "/logic/DataBaseLogic.php";
     </div>
 </main>
 
-<footer></footer>
 </body>
 </html>
