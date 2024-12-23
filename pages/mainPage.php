@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["sortOrder"])) {
 
     <div class="printMessage" id="messageContainer">
         <?php
-        
+
         if (isset($messages) && is_array($messages)) {
             foreach ($messages as $message) {
                 $senderName = htmlspecialchars($message['sender_name'] ?? 'Неизвестный отправитель');
